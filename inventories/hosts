@@ -1,3 +1,14 @@
 
-[lab]
-localhost ansible_host=10.1.1.28 ansible_user=pi
+[masters]
+k8s-MasterC1M1 ansible_host=10.2.6.141 ansible_user=rhlinuxuzer
+k8s-MasterC1M2 ansible_host=10.2.6.142 ansible_user=rhlinuxuzer
+k8s-MasterC1M3 ansible_host=10.2.6.143 ansible_user=rhlinuxuzer
+
+[workers]
+k8s-WorkerC1W1 ansible_host=10.2.6.145 ansible_user=rhlinuxuzer
+k8s-WorkerC1W2 ansible_host=10.2.6.146 ansible_user=rhlinuxuzer
+k8s-WorkerC1W3 ansible_host=10.2.6.147 ansible_user=rhlinuxuzer
+k8s-WorkerC1W4 ansible_host=10.2.6.148 ansible_user=rhlinuxuzer
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
