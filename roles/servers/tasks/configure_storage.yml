@@ -1,0 +1,5 @@
+# apt install nfs-kernel-server
+# systemctl enable nfs-kernel-server
+# systemctl start nfs-kernel-server
+ufw allow nfs
+/datafiles 192.168.2.38(ro,no_subtree_check)

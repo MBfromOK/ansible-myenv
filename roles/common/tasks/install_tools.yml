@@ -1,5 +1,3 @@
-
-
 - name: "Update Apt Cache"
   apt: 
     update_cache: yes
@@ -7,17 +5,31 @@
 
 - name: "Install Common packages"
   apt:
-    name: ['runc', 'python-pip', 'docker.io', 'python3-venv', 'docker-compose']
+    name: ['runc', 'python3-pip', 'docker.io', 'python3-venv', 'docker-compose', 'qemu-guest-agent']
     state: latest
-  tags: installation, packages
+  tags: installation, kubernetes, packages
 
-- name: "Python Docker"
-  pip:
-    name: 
-      - docker
-  tags: python
+- name: "Install Common packages"
+  apt:
+    name: ['qemu-guest-agent']
+    state: latest
+  tags: installation, packages, all
 
-- name: "Install Minikube"
-  shell: 
-    cmd: curl -Lo ~/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm && chmod +x ~/minikube && mkdir -p /usr/local/bin/ && install ~/minikube /usr/local/bin/
-  tags: installation, minikube
+- hosts: all
+  become: yes
+  tasks:
+    - name: install nfs-utils
+      apt:
+        name: nfs-utils
+        state: latest
+
+    - name: Create a mountable directory if it does not exist
+      file:
+        path: /mnt/web_storage
+        state: directory
+        owner: rhlinuxuzer
+        group: rhlinuxuzer
+        mode: '0775'
+    - name: Mount volumn
+      shell: sudo mount {{storage}}:/home/rhlinuxuzer/nfs_test /mnt/web_storage
+      tags: 

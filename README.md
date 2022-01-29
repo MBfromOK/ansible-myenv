@@ -13,3 +13,5 @@ ansible-playbook -i inventories/hosts -K playbook1.yml
 ```shell
 ansible-playbook -i inventories/hosts -K playbook1.yml -t minikube
 ```
+# TODO: Setup Vagrant from VSCode
+# From: https://medium.com/@lizrice/ssh-to-vagrant-from-vscode-5b2c5996bc0e

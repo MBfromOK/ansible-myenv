@@ -1,7 +1,9 @@
-- hosts: lab
+- hosts: all
   become: yes
   roles:
     - common
-  tags:
-    lab
-
+    
+  tasks:
+    - include_tasks: tasks/install_kubernetes.yml
+    tags: kubernetes
+    

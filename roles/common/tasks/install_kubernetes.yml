@@ -1,0 +1,30 @@
+- name: "kubernetes: Add signing key"
+  shell: 
+    cmd: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+  tags: configuration, kubernetes
+
+- name: "Kubernetes: Add repository"
+  shell: 
+    cmd:  apt-add-repository "deb http://apt.kubernetes.io/kubernetes-xenial main"
+  tags: configuration, kubernetes  
+
+- name: "Kubernetes: Install"
+  apt:
+    name: ['kubeadm', 'kubelet', 'kubectl']
+    state: latest
+  tags: installation, kubernetes
+
+- name: "Kubernetes: Prevent Updates"
+  shell:
+    cmd: apt-mark hold kubeadm kubelet kubectl
+  tags: configuration, kubernetes
+
+- name: "Kubernetes: Disable Swap"
+  shell:
+    cmd: swapoff –a
+  tags: configuration, kubernetes
+
+#- name: "Kubernetes: Initialize the cluster"
+#  shell:
+#    cmd: "kubeadm init --pod-network-cidr=10.244.0.0/16 --control-plane-endpoint=10.2.6.5"
+#  tags: configuration, kubernetes

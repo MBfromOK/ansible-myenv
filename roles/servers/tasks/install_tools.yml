@@ -1,0 +1,15 @@
+- name: "Update Apt Cache"
+  apt: 
+    update_cache: yes
+  tags: installation
+
+- name: "Install Common packages"
+  apt:
+    name: ['qemu-guest-agent']
+    state: latest
+  tags: installation, packages, all
+
+qemu_guest_agent_enable="YES"
+qemu_guest_agent_flags="-d -v -l /var/log/qemu-ga.log"
+
+service qemu-guest-agent start
